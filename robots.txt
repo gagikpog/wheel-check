@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://wheel-check.gagikpog.ru/sitemap.xml
