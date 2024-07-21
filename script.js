@@ -19,13 +19,17 @@ document.addEventListener('DOMContentLoaded', function() {
     function mouseWheel(e) {
         const delta = e.deltaY || e.detail;
         if (checkArea) {
+            const child = document.createElement('span');
             if (delta > 0) {
-                checkArea.textContent += `\n${downText}`;
+                child.textContent = downText;
+                child.classList.add('wheel-down');
                 down++;
             } else {
-                checkArea.textContent += `\n${upText}`;
+                child.textContent = upText;
+                child.classList.add('wheel-up');
                 up++;
             }
+            checkArea.appendChild(child);
             checkArea.scrollTop = checkArea.scrollHeight;
         }
         updateInfo();

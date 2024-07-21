@@ -76,7 +76,8 @@ button:active {
 .checkArea {
     height: 100%;
     width: 10%;
-    white-space: break-spaces;
+    display: flex;
+    flex-direction: column;
     min-width: 75px;
     padding: 10px;
     overflow-y: auto;
@@ -115,3 +116,12 @@ p {
 noindex {
     display: contents;
 }
+
+.wheel-down+.wheel-up.wheel-up:has(+.wheel-down) {
+    color: red;
+}
+
+.wheel-up+.wheel-down.wheel-down:has(+.wheel-up) {
+    color: red;
+}
+
