@@ -52,4 +52,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     updateInfo();
 
+    const classes = {
+        0: 'st-left',
+        1: 'st-middle',
+        2: 'st-right',
+        3: 'st-forward',
+        4: 'st-back'
+    };
+
+    document.addEventListener('mousedown', (event) => {
+        const className = classes[event.button];
+        if (event.button !== 0) {
+            event.preventDefault();
+        }
+        if (className) {
+            document.body.classList.add(className);
+            document.body.classList.add(className + '-active');
+        }
+    });
+    document.addEventListener('mouseup', (event) => {
+        const className = classes[event.button];
+        if (event.button !== 0) {
+            event.preventDefault();
+        }
+        if (className) {
+            document.body.classList.remove(className);
+        }
+    });
+
+    document.addEventListener('contextmenu', function(event) {
+        event.preventDefault();
+    }, false);
+
 });
