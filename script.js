@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         down = 0;
         up = 0;
         updateInfo();
+        document.body.classList.remove(...document.body.classList);
         if (checkArea) {
             checkArea.textContent = '';
         }
@@ -80,8 +81,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    document.addEventListener('contextmenu', function(event) {
+    document.addEventListener('contextmenu', (event) => {
         event.preventDefault();
     }, false);
+
+    document.addEventListener('mousemove', (event) => {
+        document.body.style.setProperty('--mouse-x', event.clientX + 'px');
+        document.body.style.setProperty('--mouse-y', event.clientY + 'px');
+    })
 
 });

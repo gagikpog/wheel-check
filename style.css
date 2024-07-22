@@ -125,19 +125,22 @@ noindex {
     color: red;
 }
 
-.mouse-image {
+.mouse {
     --size: calc(min(100vw, 100vh) / 10);
     width: calc(var(--size) * 4);
     height: calc(var(--size) * 3);
+    position: relative;
+}
+
+.mouse-image {
+    width: calc(var(--size) * 4);
+    height: calc(var(--size) * 3);
+    position: absolute;
+    left: calc((var(--mouse-x, 0) - 50vw) / 80);
+    top: calc((var(--mouse-y, 0) - 50vh) / 80);
     --press-color: #1f5f46;
     --active-color: #2f7b5d;
 }
-
-.st-1{fill:#52c391}
-.st-2{fill:#7EA093;}
-.st-3{fill:#464947;}
-.st-4{fill:#2C2C2C;}
-
 
 .st-left-active .st-lmb {
     fill: var(--active-color);
