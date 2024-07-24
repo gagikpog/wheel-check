@@ -142,6 +142,11 @@ noindex {
     --active-color: #2f7b5d;
 }
 
+.mouse-svg {
+    width: 100%;
+    height: 100%;
+}
+
 .st-left-active .st-lmb {
     fill: var(--active-color);
 }
@@ -172,4 +177,31 @@ noindex {
 }
 .st-back .st-bmb {
     fill: var(--press-color);
+}
+
+.mouse-button-count {
+    position: absolute;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.mouse-button-left {
+    left: calc(var(--size) * 0.8);
+    top: calc(var(--size) * 0.5);
+}
+.mouse-button-middle {
+    left: var(--size);
+    top: calc(var(--size) * 0.05);
+}
+.mouse-button-right {
+    left: calc(var(--size) * 1.7);
+    top: calc(var(--size) * 0.1);
+}
+.mouse-button-forward {
+    left: calc(var(--size) * 0.9);
+    top: calc(var(--size) * 1.4);
+}
+.mouse-button-back {
+    left: calc(var(--size) * 1.45);
+    top: calc(var(--size) * 1.7);
 }

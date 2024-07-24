@@ -9,6 +9,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const info = document.querySelector('#info');
     const scrollHere = document.querySelector('#scrollHere');
     const resetButton = document.querySelector('#reset');
+    const buttonCountIds = {
+        0: '#mouse-left-count',
+        1: '#mouse-middle-count',
+        2: '#mouse-right-count',
+        3: '#mouse-back-count',
+        4: '#mouse-forward-count'
+    };
+    const classes = {
+        0: 'st-left',
+        1: 'st-middle',
+        2: 'st-right',
+        3: 'st-back',
+        4: 'st-forward'
+    };
 
     function updateInfo() {
         if (info) {
@@ -43,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (checkArea) {
             checkArea.textContent = '';
         }
+        Object.values(buttonCountIds).forEach((id) => document.querySelector(id).textContent = '');
     }
 
     if (scrollHere) {
@@ -53,16 +68,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     updateInfo();
 
-    const classes = {
-        0: 'st-left',
-        1: 'st-middle',
-        2: 'st-right',
-        3: 'st-forward',
-        4: 'st-back'
-    };
+
 
     document.addEventListener('mousedown', (event) => {
         const className = classes[event.button];
+        const buttonCount = document.querySelector(buttonCountIds[event.button]);
+        buttonCount.textContent = Number(buttonCount.textContent || 0) + 1;
+
         if (event.button !== 0) {
             event.preventDefault();
         }
