@@ -8,12 +8,14 @@ if (canvas) {
     const ctx = canvas?.getContext('2d');
     const pressedButtons = { 0: false, 1: false, 2: false, 3: false, 4: false };
     const prevMousePosition = { x: 0, y: 0 };
+    let hasImage = false;
 
     document.addEventListener('mousedown', (event) => {
         drawCircle(event.clientX, event.clientY, 20, mouseButtonColor[event.button]);
         pressedButtons[event.button] = true;
         prevMousePosition.x = event.clientX;
         prevMousePosition.y = event.clientY;
+        hasImage = true;
         if (ctx) {
             ctx.strokeStyle = getRandomColor();
             ctx.lineWidth = 4;
@@ -39,7 +41,7 @@ if (canvas) {
     });
 
     setInterval(() => {
-        if (!pressedButtons[0]) {
+        if (!pressedButtons[0] && hasImage) {
             fading();
         }
     }, 50);
@@ -49,9 +51,11 @@ if (canvas) {
             const image = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const pixels = image.data;
             const size = canvas.width * canvas.height * 4;
+            hasImage = false;
             for (let i = 0; i < size; i++) {
                 if (pixels[i] > 0) {
                     pixels[i] -= 10;
+                    hasImage = true;
                 }
             }
             ctx.putImageData(image, 0, 0);
