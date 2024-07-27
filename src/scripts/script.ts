@@ -1,8 +1,9 @@
+import { Analyzer } from './analyzer';
+import { lang, MouseButtons } from './constants';
 import { getId } from './counter';
 
 let up = 0;
 let down = 0;
-const lang = location.pathname.includes('en') ? 'en' : 'ru';
 const upText = lang === 'en' ? 'Up' : 'Вверх';
 const downText = lang === 'en' ? 'Down' : 'Вниз';
 
@@ -10,19 +11,21 @@ const checkArea = document.querySelector('#check-area');
 const info = document.querySelector('#info');
 const contentArea = document.querySelector('#content-area');
 const resetButton = document.querySelector('#reset');
+const displayNode: HTMLDivElement = document.querySelector('#display');
+const analyzer = new Analyzer({node: displayNode});
 const buttonCountIds = {
-    0: '#mouse-left-count',
-    1: '#mouse-middle-count',
-    2: '#mouse-right-count',
-    3: '#mouse-back-count',
-    4: '#mouse-forward-count'
+    [MouseButtons.Left]: '#mouse-left-count',
+    [MouseButtons.Middle]: '#mouse-middle-count',
+    [MouseButtons.Right]: '#mouse-right-count',
+    [MouseButtons.Back]: '#mouse-back-count',
+    [MouseButtons.Forward]: '#mouse-forward-count'
 };
 const classes = {
-    0: 'st-left',
-    1: 'st-middle',
-    2: 'st-right',
-    3: 'st-back',
-    4: 'st-forward'
+    [MouseButtons.Left]: 'st-left',
+    [MouseButtons.Middle]: 'st-middle',
+    [MouseButtons.Right]: 'st-right',
+    [MouseButtons.Back]: 'st-back',
+    [MouseButtons.Forward]: 'st-forward'
 };
 
 function updateInfo(): void {
@@ -34,6 +37,7 @@ function updateInfo(): void {
 
 function mouseWheel(e: WheelEvent): void {
     const delta = e.deltaY || e.detail;
+    const error = analyzer.mouseWheel(delta);
     if (checkArea) {
         const child = document.createElement('span');
         child.id = getId();
@@ -45,6 +49,9 @@ function mouseWheel(e: WheelEvent): void {
             child.textContent = upText;
             child.classList.add('wheel-up');
             up++;
+        }
+        if (error) {
+            child.classList.add('wheel-error');
         }
         checkArea.appendChild(child);
         checkArea.scrollTop = checkArea.scrollHeight;
@@ -65,6 +72,7 @@ function reset(): void {
             document.querySelector(id).textContent = '';
         }
     });
+    analyzer.reset();
 }
 
 contentArea?.addEventListener('mousewheel', mouseWheel);
@@ -73,6 +81,7 @@ resetButton?.addEventListener('click', reset);
 updateInfo();
 
 document.addEventListener('mousedown', (event: MouseEvent) => {
+    analyzer.mouseDown(event.button);
     const className = classes[event.button];
     const buttonCount = document.querySelector(buttonCountIds[event.button]);
     buttonCount.textContent = Number(buttonCount.textContent || 0) + 1;
@@ -87,6 +96,7 @@ document.addEventListener('mousedown', (event: MouseEvent) => {
 });
 
 document.addEventListener('mouseup', (event: MouseEvent) => {
+    analyzer.mouseUp(event.button);
     const className = classes[event.button];
     if (event.button !== 0) {
         event.preventDefault();

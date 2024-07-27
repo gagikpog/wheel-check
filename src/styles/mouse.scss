@@ -1,9 +1,4 @@
-
-.wheel-down+.wheel-up.wheel-up:has(+.wheel-down) {
-    color: red;
-}
-
-.wheel-up+.wheel-down.wheel-down:has(+.wheel-up) {
+.wheel-error {
     color: red;
 }
 
