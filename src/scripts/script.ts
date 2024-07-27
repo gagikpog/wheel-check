@@ -28,6 +28,7 @@ function updateInfo(): void {
     if (info) {
         info.textContent = `${downText}: ${down} ${upText}: ${up}`;
     }
+    document.body.style.setProperty('--mouse-wheel-index', String(down - up + 100));
 }
 
 function mouseWheel(e: WheelEvent): void {
