@@ -1,6 +1,7 @@
 import { Analyzer } from './analyzer';
 import { lang, MouseButtons } from './constants';
 import { getId } from './counter';
+import { debounce } from './debounce';
 
 let up = 0;
 let down = 0;
@@ -28,6 +29,9 @@ const classes = {
     [MouseButtons.Forward]: 'st-forward'
 };
 
+const removeWheelUpClass = debounce(() => document.body.classList.remove('st-wheel-up'), 300);
+const removeWheelDownClass = debounce(() => document.body.classList.remove('st-wheel-down'), 300);
+
 function updateInfo(): void {
     if (info) {
         info.textContent = `${downText}: ${down} ${upText}: ${up}`;
@@ -44,10 +48,14 @@ function mouseWheel(e: WheelEvent): void {
         if (delta > 0) {
             child.textContent = downText;
             child.classList.add('wheel-down');
+            document.body.classList.add('st-wheel-down');
+            removeWheelDownClass();
             down++;
         } else {
             child.textContent = upText;
             child.classList.add('wheel-up');
+            document.body.classList.add('st-wheel-up');
+            removeWheelUpClass();
             up++;
         }
         if (error) {

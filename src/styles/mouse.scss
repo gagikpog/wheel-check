@@ -16,7 +16,8 @@
     left: calc((var(--mouse-x, 0) - 50vw) / 80);
     top: calc((var(--mouse-y, 0) - 50vh) / 80);
     --press-color: #1f5f46;
-    --active-color: #2f7b5d;
+    --active-color: #595959;
+    --active-color-2: #8f8a8a;
 }
 
 .mouse-svg {
@@ -28,16 +29,16 @@
     fill: var(--active-color);
 }
 .st-middle-active .st-mmb {
-    fill: #419c78;
+    fill: var(--active-color-2);
 }
 .st-right-active .st-rmb {
     fill: var(--active-color);
 }
 .st-forward-active .st-fmb {
-    fill: var(--active-color);
+    fill: var(--active-color-2);
 }
 .st-back-active .st-bmb {
-    fill: var(--active-color);
+    fill: var(--active-color-2);
 }
 
 .st-left .st-lmb {
@@ -56,6 +57,14 @@
     fill: var(--press-color);
 }
 
+.st-wheel-up .st-wu {
+    fill: var(--press-color);
+}
+
+.st-wheel-down .st-wd {
+    fill: var(--press-color);
+}
+
 .mouse-button-count {
     position: absolute;
     font-size: 10px;
@@ -63,22 +72,22 @@
 }
 
 .mouse-button-left {
-    left: calc(var(--size) * 0.8);
-    top: calc(var(--size) * 0.5);
+    left: calc(var(--size) * 1.6);
+    top: calc(var(--size) * 0.42);
 }
 .mouse-button-middle {
-    left: var(--size);
-    top: calc(var(--size) * 0.05);
+    left: calc(var(--size) * 1.95);
+    top: calc(var(--size) * 0.42);
 }
 .mouse-button-right {
-    left: calc(var(--size) * 1.7);
-    top: calc(var(--size) * 0.1);
+    left: calc(var(--size) * 2.33);
+    top: calc(var(--size) * 0.42);
 }
 .mouse-button-forward {
-    left: calc(var(--size) * 0.9);
-    top: calc(var(--size) * 1.4);
+    left: calc(var(--size) * 1.2);
+    top: calc(var(--size) * 1);
 }
 .mouse-button-back {
-    left: calc(var(--size) * 1.45);
-    top: calc(var(--size) * 1.7);
+    left: calc(var(--size) * 1.2);
+    top: calc(var(--size) * 1.4);
 }
