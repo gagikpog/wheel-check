@@ -1,17 +1,18 @@
+import { getRandomColor } from './color';
+
 const canvas: HTMLCanvasElement | null = document.querySelector('#canvas');
+let hasImage = false;
 
 if (canvas) {
-    const r = randomGenerator(2);
     const mouseButtonColor = Array.from({ length: 5 }, getRandomColor);
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const ctx = canvas?.getContext('2d');
     const pressedButtons = { 0: false, 1: false, 2: false, 3: false, 4: false };
     const prevMousePosition = { x: 0, y: 0 };
-    let hasImage = false;
 
     document.addEventListener('mousedown', (event) => {
-        drawCircle(event.clientX, event.clientY, 20, mouseButtonColor[event.button]);
+        drawCircle(ctx, event.clientX, event.clientY, 20, mouseButtonColor[event.button]);
         pressedButtons[event.button] = true;
         prevMousePosition.x = event.clientX;
         prevMousePosition.y = event.clientY;
@@ -23,13 +24,13 @@ if (canvas) {
     });
 
     document.addEventListener('mouseup', (event) => {
-        drawCircle(event.clientX, event.clientY, 20, mouseButtonColor[event.button]);
+        drawCircle(ctx, event.clientX, event.clientY, 20, mouseButtonColor[event.button]);
         pressedButtons[event.button] = false;
     });
 
     document.addEventListener('mousemove', (event) => {
         if (pressedButtons[0]) {
-            drawLine(prevMousePosition.x, prevMousePosition.y, event.clientX, event.clientY);
+            drawLine(ctx, prevMousePosition.x, prevMousePosition.y, event.clientX, event.clientY);
             prevMousePosition.x = event.clientX;
             prevMousePosition.y = event.clientY;
         }
@@ -42,57 +43,41 @@ if (canvas) {
 
     setInterval(() => {
         if (!pressedButtons[0] && hasImage) {
-            fading();
+            fading(canvas, ctx);
         }
     }, 50);
+}
 
-    function fading(): void {
-        if (canvas && ctx) {
-            const image = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            const pixels = image.data;
-            const size = canvas.width * canvas.height * 4;
-            hasImage = false;
-            for (let i = 0; i < size; i++) {
-                if (pixels[i] > 0) {
-                    pixels[i] -= 10;
-                    hasImage = true;
-                }
+function fading(canvas1: HTMLCanvasElement, ctx: CanvasRenderingContext2D): void {
+    if (canvas1 && ctx) {
+        const image = ctx.getImageData(0, 0, canvas1.width, canvas1.height);
+        const pixels = image.data;
+        const size = canvas1.width * canvas1.height * 4;
+        hasImage = false;
+        for (let i = 0; i < size; i++) {
+            if (pixels[i] > 0) {
+                pixels[i] -= 10;
+                hasImage = true;
             }
-            ctx.putImageData(image, 0, 0);
         }
+        ctx.putImageData(image, 0, 0);
     }
+}
 
-    function drawCircle(x: number, y: number, radius: number, fill: string): void {
-        if (ctx) {
-            ctx.beginPath();
-            ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
-            ctx.fillStyle = fill;
-            ctx.fill();
-        }
+function drawCircle(ctx: CanvasRenderingContext2D, x: number, y: number, radius: number, fill: string): void {
+    if (ctx) {
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
+        ctx.fillStyle = fill;
+        ctx.fill();
     }
+}
 
-    function drawLine(x: number, y: number, toX: number, toY: number): void {
-        if (ctx) {
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-            ctx.lineTo(toX, toY);
-            ctx.stroke();
-        }
-    }
-
-    function * randomGenerator(previous = 0) {
-        while (true) {
-            previous = previous * 16807 % 2147483647;
-            yield previous;
-        }
-    }
-
-    function random(min: number, max: number): number {
-        const val = r.next().value;
-        return Math.round(((val || 0) + min) % max);
-    }
-
-    function getRandomColor(): string {
-        return `hsl(${random(0, 359)}deg ${random(40, 100)}% ${random(80, 100)}%)`;
+function drawLine(ctx: CanvasRenderingContext2D, x: number, y: number, toX: number, toY: number): void {
+    if (ctx) {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(toX, toY);
+        ctx.stroke();
     }
 }

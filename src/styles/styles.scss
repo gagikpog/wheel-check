@@ -10,6 +10,7 @@ main {
     display: flex;
     flex: 1;
     min-height: 0;
+    position: relative;
 }
 
 button {
@@ -31,18 +32,20 @@ button:active {
     box-shadow: inset -3px -3px 4px #64646499, inset 3px 3px 4px #000;
 }
 
-.checkArea {
+.sidebar {
     height: 100%;
-    width: 10%;
+    width: 80px;
     display: flex;
     flex-direction: column;
-    min-width: 75px;
     padding: 10px;
     overflow-y: auto;
     box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
-#scrollHere {
+.content {
     display: flex;
     flex: 1;
     height: 100%;
@@ -60,6 +63,8 @@ button:active {
     text-shadow: -4px -4px 6px #64646499, 4px 4px 6px #000;
     text-transform: uppercase;
     margin-top: auto;
+    margin-left: 75px;
+    margin-right: 75px;
 }
 
 p {
@@ -67,7 +72,8 @@ p {
     color: #b1b1b1;
     margin-top: auto;
     margin-bottom: 20px;
-    margin-right: min(10%, 75px);
+    margin-left: 75px;
+    margin-right: 75px;
 }
 
 noindex {

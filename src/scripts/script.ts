@@ -5,9 +5,9 @@ const lang = location.pathname.includes('en') ? 'en' : 'ru';
 const upText = lang === 'en' ? 'Up' : 'Вверх';
 const downText = lang === 'en' ? 'Down' : 'Вниз';
 
-const checkArea = document.querySelector('#checkArea');
+const checkArea = document.querySelector('#check-area');
 const info = document.querySelector('#info');
-const scrollHere = document.querySelector('#scrollHere');
+const contentArea = document.querySelector('#content-area');
 const resetButton = document.querySelector('#reset');
 const buttonCountIds = {
     0: '#mouse-left-count',
@@ -64,7 +64,7 @@ function reset(): void {
     });
 }
 
-scrollHere?.addEventListener('mousewheel', mouseWheel);
+contentArea?.addEventListener('mousewheel', mouseWheel);
 resetButton?.addEventListener('click', reset);
 
 updateInfo();
