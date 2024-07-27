@@ -1,3 +1,4 @@
+import { getId } from './counter';
 
 let up = 0;
 let down = 0;
@@ -35,6 +36,7 @@ function mouseWheel(e: WheelEvent): void {
     const delta = e.deltaY || e.detail;
     if (checkArea) {
         const child = document.createElement('span');
+        child.id = getId();
         if (delta > 0) {
             child.textContent = downText;
             child.classList.add('wheel-down');
