@@ -1,10 +1,11 @@
 import { Analyzer } from './analyzer';
-import { lang, MouseButtons } from './constants';
+import { lang, MouseButtons, DOUBLE_CLICK_TIMEOUT } from './constants';
 import { getId } from './counter';
 import { debounce } from './debounce';
 
 let up = 0;
 let down = 0;
+let leftButtonPressTimeout = 0;
 const upText = lang === 'en' ? 'Up' : 'Вверх';
 const downText = lang === 'en' ? 'Down' : 'Вниз';
 
@@ -96,6 +97,12 @@ document.addEventListener('mousedown', (event: MouseEvent) => {
 
     if (event.button !== 0) {
         event.preventDefault();
+    } else {
+        const now = Date.now();
+        if (now - leftButtonPressTimeout < DOUBLE_CLICK_TIMEOUT) {
+            onDoubleClick(event);
+        }
+        leftButtonPressTimeout = now;
     }
     if (className) {
         document.body.classList.add(className);
@@ -122,3 +129,10 @@ document.addEventListener('mousemove', (event: MouseEvent) => {
     document.body.style.setProperty('--mouse-x', event.clientX + 'px');
     document.body.style.setProperty('--mouse-y', event.clientY + 'px');
 });
+
+function onDoubleClick(event: MouseEvent) {
+    const target: HTMLElement = event.target as HTMLElement;
+    if (target.closest('.dnd-icon')) {
+        window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+    }
+}

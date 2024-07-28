@@ -11,21 +11,26 @@ if (canvas) {
     const pressedButtons = { 0: false, 1: false, 2: false, 3: false, 4: false };
     const prevMousePosition = { x: 0, y: 0 };
 
-    document.addEventListener('mousedown', (event) => {
-        drawCircle(ctx, event.clientX, event.clientY, 20, mouseButtonColor[event.button]);
-        pressedButtons[event.button] = true;
-        prevMousePosition.x = event.clientX;
-        prevMousePosition.y = event.clientY;
-        hasImage = true;
-        if (ctx) {
-            ctx.strokeStyle = getRandomColor();
-            ctx.lineWidth = 4;
+    document.addEventListener('mousedown', (event: MouseEvent) => {
+        const target: HTMLElement = event.target as HTMLElement;
+        if (!target.closest('.js-no-click')) {
+            drawCircle(ctx, event.clientX, event.clientY, 20, mouseButtonColor[event.button]);
+            pressedButtons[event.button] = true;
+            prevMousePosition.x = event.clientX;
+            prevMousePosition.y = event.clientY;
+            hasImage = true;
+            if (ctx) {
+                ctx.strokeStyle = getRandomColor();
+                ctx.lineWidth = 4;
+            }
         }
     });
 
     document.addEventListener('mouseup', (event) => {
-        drawCircle(ctx, event.clientX, event.clientY, 20, mouseButtonColor[event.button]);
-        pressedButtons[event.button] = false;
+        if (pressedButtons[event.button]) {
+            drawCircle(ctx, event.clientX, event.clientY, 20, mouseButtonColor[event.button]);
+            pressedButtons[event.button] = false;
+        }
     });
 
     document.addEventListener('mousemove', (event) => {

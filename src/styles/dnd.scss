@@ -1,0 +1,23 @@
+.dnd-icon {
+    position: absolute;
+    left: 100px;
+    top: 10px;
+}
+
+.drag-target {
+    position: absolute;
+    right: 0;
+    bottom: 20px;
+}
+
+.drag-icon-hide .dnd-icon {
+    display: none;
+}
+
+.drag-icon-hide .trash {
+    display: block;
+}
+
+.trash {
+    display: none;
+}
