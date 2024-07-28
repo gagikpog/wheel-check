@@ -17,7 +17,7 @@
     top: calc((var(--mouse-y, 0) - 50vh) / 80);
     --press-color: #1f5f46;
     --active-color: #595959;
-    --active-color-2: #8f8a8a;
+    --active-color: #8f8a8a;
 }
 
 .mouse-svg {
@@ -26,29 +26,29 @@
 }
 
 .st-left-active .st-lmb {
-    fill: var(--active-color);
+    fill: url(#BUTTON_ACTIVE);
 }
 .st-middle-active .st-mmb {
-    fill: var(--active-color-2);
-}
-.st-right-active .st-rmb {
     fill: var(--active-color);
 }
+.st-right-active .st-rmb {
+    fill: url(#BUTTON_ACTIVE);
+}
 .st-forward-active .st-fmb {
-    fill: var(--active-color-2);
+    fill: var(--active-color);
 }
 .st-back-active .st-bmb {
-    fill: var(--active-color-2);
+    fill: var(--active-color);
 }
 
 .st-left .st-lmb {
-    fill: var(--press-color);
+    fill: url(#BUTTON_PRESS)
 }
 .st-middle .st-mmb {
     fill: #287456;
 }
 .st-right .st-rmb {
-    fill: var(--press-color);
+    fill: url(#BUTTON_PRESS)
 }
 .st-forward .st-fmb {
     fill: var(--press-color);
