@@ -1,6 +1,7 @@
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const CopywebpackPlugin = require('copy-webpack-plugin');
 
@@ -24,7 +25,7 @@ module.exports = {
             {
                 test: /\.s?[ac]ss$/i,
                 use: [
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     'sass-loader',
                 ],
@@ -48,6 +49,9 @@ module.exports = {
                     to: '[name][ext]',
                 },
             ],
+        }),
+        new MiniCssExtractPlugin({
+            filename: '[name].[hash].css',
         }),
     ],
     devServer: {
