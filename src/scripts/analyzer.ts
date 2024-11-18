@@ -1,6 +1,6 @@
 import { isLocalHost, MouseButtons } from './constants';
 const MOUSE_CLICK_MIN_TIMEOUT = 30;
-const MOUSE_WHEEL_MIN_TIMEOUT = 20;
+const MOUSE_WHEEL_MIN_TIMEOUT = 50;
 
 export enum EventTypes {
     MouseWheelUp = 6,
